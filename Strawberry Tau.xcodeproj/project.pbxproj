@@ -6,10 +6,37 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		E72B66B318F0C909004617FC /* alu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = alu.cpp; sourceTree = "<group>"; };
+		E72B66B418F0C909004617FC /* alu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alu.h; sourceTree = "<group>"; };
+		E72B66B518F0C909004617FC /* circuit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = circuit.cpp; sourceTree = "<group>"; };
+		E72B66B618F0C909004617FC /* circuit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = circuit.h; sourceTree = "<group>"; };
+		E72B66B718F0C909004617FC /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		E72B66B818F0C909004617FC /* computer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = computer.h; sourceTree = "<group>"; };
+		E72B66B918F0C909004617FC /* fpu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fpu.h; sourceTree = "<group>"; };
+		E72B66BA18F0C909004617FC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E72B66BB18F0C909004617FC /* memory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memory.h; sourceTree = "<group>"; };
+		E72B66BC18F0C909004617FC /* registerfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registerfile.h; sourceTree = "<group>"; };
+		E72B66BD18F0CA8C004617FC /* fpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fpu.cpp; sourceTree = "<group>"; };
+		E72B66BE18F0CCB7004617FC /* StrawberryTau.kdev4 */ = {isa = PBXFileReference; lastKnownFileType = text; path = StrawberryTau.kdev4; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		E72B66AC18F0C8ED004617FC = {
 			isa = PBXGroup;
 			children = (
+				E72B66BE18F0CCB7004617FC /* StrawberryTau.kdev4 */,
+				E72B66B318F0C909004617FC /* alu.cpp */,
+				E72B66B418F0C909004617FC /* alu.h */,
+				E72B66B518F0C909004617FC /* circuit.cpp */,
+				E72B66B618F0C909004617FC /* circuit.h */,
+				E72B66B718F0C909004617FC /* CMakeLists.txt */,
+				E72B66B818F0C909004617FC /* computer.h */,
+				E72B66B918F0C909004617FC /* fpu.h */,
+				E72B66BD18F0CA8C004617FC /* fpu.cpp */,
+				E72B66BA18F0C909004617FC /* main.cpp */,
+				E72B66BB18F0C909004617FC /* memory.h */,
+				E72B66BC18F0C909004617FC /* registerfile.h */,
 			);
 			sourceTree = "<group>";
 		};
