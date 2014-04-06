@@ -11,6 +11,8 @@
 
 using namespace std;
 
+using namespace std;
+
 class Computer
 {
 public:
@@ -18,11 +20,19 @@ public:
 	void Execute(string instruction);
 	void PrintState(void); // prints contents of regs, mem, etc.
 private:
+<<<<<<< HEAD
 	Memory mem;
 	ALU alu;
 	FPU fpu;
 	RegisterFile regFile;
 	string* TokenizeInstruction(string instruction);
+=======
+  Memory mem;
+  ALU alu;
+  FPU fpu;
+  RegisterFile regFile;
+  string* TokenizeInstruction(string instruction);
+>>>>>>> FETCH_HEAD
 };
 
 #endif

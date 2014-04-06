@@ -15,17 +15,26 @@
 #include <iostream>
 //#include <regex>
 
+using namespace std;
+
 Computer::Computer()
 {
-
+	  Memory mem = new Memory();
+	  ALU alu = new ALU();
+	  FPU fpu = new FPU();
+	  RegisterFile regFile = new RegisterFile();
 }
 
+<<<<<<< HEAD
 private Memory mem;
 private ALU alu;
 private FPU fpu;
 private RegisterFile regFile;
 
 private string* Computer::TokenizeInstruction(string instruction)
+=======
+string* Computer::TokenizeInstruction(string instruction)
+>>>>>>> FETCH_HEAD
 {
 	return instruction;
 }
