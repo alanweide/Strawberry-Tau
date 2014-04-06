@@ -19,26 +19,24 @@ using namespace std;
 
 Computer::Computer()
 {
-
+	  Memory mem = new Memory();
+	  ALU alu = new ALU();
+	  FPU fpu = new FPU();
+	  RegisterFile regFile = new RegisterFile();
 }
 
-private Memory mem;
-private ALU alu;
-private FPU fpu;
-private RegisterFile regFile;
-
-private string* TokenizeInstruction(string instruction)
+string* Computer::TokenizeInstruction(string instruction)
 {
 	regex rgx("[a-z]+(\sreg(\d|1[0-5])){3}");
 	return instruction;
 }
 
-void Execute(string instruction)
+void Computer::Execute(string instruction)
 {
 	string* tokens = TokenizeInstruction(instruction);
 }
 
-void PrintState(void)
+void Computer::PrintState(void)
 {
 
 }

@@ -24,7 +24,7 @@ private:
   ALU alu;
   FPU fpu;
   RegisterFile regFile;
-	string* TokenizeInstruction(string instruction);
+  string* TokenizeInstruction(string instruction);
 };
 
 #endif
