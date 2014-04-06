@@ -30,15 +30,21 @@ double* FPU::Divide(double a, double b)
 
 double FPU::SquareRoot(double a)
 {
+	double ans;
 	// implement Taylor series for square root
+	return ans;
 }
 
 double FPU::Sin(double a)
 {
+	double ans;
 	// implement Taylor series for Sine
+	return ans;
 }
 
 double FPU::Exp(double a)
 {
+	double ans;
 	// implement Taylor series for Exponent
+	return ans;
 }

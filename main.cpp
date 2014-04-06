@@ -8,12 +8,13 @@ int main(void) {
   string instruction;
   Computer computer;
   
-  while(string!="EndProgram")
+  while(instruction != "EndProgram")
   {
     cout<<"Enter an instruction: ";
     cin>>instruction;
     computer.Execute(instruction);
     computer.PrintState();
+
   }
   return 0;
 }
