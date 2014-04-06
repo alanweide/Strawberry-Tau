@@ -8,18 +8,21 @@
 
 #include "memory.h"
 
-	Memory::Memory()
-	{
+using namespace std;
 
-	}
+Memory::Memory()
+{
 
-	long Memory::ReadAddress(long address)
-	{
+}
 
-	}
+long Memory::ReadAddress(long address)
+{
+	return mem[address];
+}
 
-	long Memory::WriteToAddress(long address)
-	{
+void Memory::WriteToAddress(long address, long value)
+{
+	mem[address] = value;
+}
 
-	}
 

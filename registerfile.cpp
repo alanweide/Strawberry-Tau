@@ -37,7 +37,18 @@ long* RegisterFile::ReadTwoRegisters(string address1, string address2)
 void RegisterFile::Write(string address, long value)
 {
 	int addr = this->findRegister(address);
-	registers[addr] = value;
+	if (addr == 0)
+	{
+		cout << "Cannot write to reg0 (constant 0)";
+	}
+	else if (addr == NULL)
+	{
+		cout << "Invalid Register name. address = " + address;
+	}
+	else
+	{
+		registers[addr] = value;
+	}
 }
 
 int RegisterFile::findRegister(string address)
@@ -111,6 +122,5 @@ int RegisterFile::findRegister(string address)
 		cout << "Invalid register name.  arg = " + address;
 		return NULL;
 	}
-
 
 }
