@@ -13,7 +13,7 @@
 #include "registerfile.h"
 #include <string>
 #include <iostream>
-#include <regex>
+//#include <regex>
 
 using namespace std;
 
@@ -24,16 +24,19 @@ Computer::Computer()
 	  FPU fpu = new FPU();
 	  RegisterFile regFile = new RegisterFile();
 }
+private Memory mem;
+private ALU alu;
+private FPU fpu;
+private RegisterFile regFile;
 
-string* Computer::TokenizeInstruction(string instruction)
+private string* Computer::TokenizeInstruction(string instruction)
 {
-	regex rgx("[a-z]+(\sreg(\d|1[0-5])){3}");
 	return instruction;
 }
 
 void Computer::Execute(string instruction)
 {
-	string* tokens = TokenizeInstruction(instruction);
+	
 }
 
 void Computer::PrintState(void)
