@@ -13,6 +13,7 @@
 #include "registerfile.h"
 #include <string>
 #include <iostream>
+#include <regex>
 
 Computer::Computer()
 {
@@ -24,15 +25,15 @@ private ALU alu;
 private FPU fpu;
 private RegisterFile regFile;
 
-private string* InstructionTokenizer(string instruction)
+private string* TokenizeInstruction(string instruction)
 {
-	string ans;
-	return ans;
+	regex rgx("[a-z]+(\sreg(\d|1[0-5])){3}");
+	return instruction;
 }
 
 void Execute(string instruction)
 {
-	
+	string* tokens = TokenizeInstruction(instruction);
 }
 
 void PrintState(void)

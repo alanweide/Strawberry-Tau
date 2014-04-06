@@ -8,6 +8,7 @@
 #include "registerfile.h"
 #include <string>
 #include <iostream>
+#include <regex>
 
 class Computer:public Circuit
 {
@@ -20,7 +21,7 @@ private:
   ALU alu;
   FPU fpu;
   RegisterFile regFile;
-  string* InstructionTokenizer(string instruction);
+  string* TokenizeInstruction(string instruction);
 };
 
 #endif
