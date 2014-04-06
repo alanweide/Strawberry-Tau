@@ -19,6 +19,9 @@
 		E72B66BC18F0C909004617FC /* registerfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registerfile.h; sourceTree = "<group>"; };
 		E72B66BD18F0CA8C004617FC /* fpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fpu.cpp; sourceTree = "<group>"; };
 		E72B66BE18F0CCB7004617FC /* StrawberryTau.kdev4 */ = {isa = PBXFileReference; lastKnownFileType = text; path = StrawberryTau.kdev4; sourceTree = "<group>"; };
+		E72B66BF18F0D64E004617FC /* memory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = memory.cpp; sourceTree = "<group>"; };
+		E72B66C018F0D65A004617FC /* registerfile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = registerfile.cpp; sourceTree = "<group>"; };
+		E72B66C118F0D685004617FC /* computer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = computer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -32,11 +35,14 @@
 				E72B66B618F0C909004617FC /* circuit.h */,
 				E72B66B718F0C909004617FC /* CMakeLists.txt */,
 				E72B66B818F0C909004617FC /* computer.h */,
+				E72B66C118F0D685004617FC /* computer.cpp */,
 				E72B66B918F0C909004617FC /* fpu.h */,
 				E72B66BD18F0CA8C004617FC /* fpu.cpp */,
 				E72B66BA18F0C909004617FC /* main.cpp */,
 				E72B66BB18F0C909004617FC /* memory.h */,
+				E72B66BF18F0D64E004617FC /* memory.cpp */,
 				E72B66BC18F0C909004617FC /* registerfile.h */,
+				E72B66C018F0D65A004617FC /* registerfile.cpp */,
 			);
 			sourceTree = "<group>";
 		};
