@@ -5,16 +5,16 @@
 using namespace std;
 
 int main(void) {
-  string instruction;
-  Computer computer;
-  
-  while(instruction != "EndProgram")
-  {
-    cout<<"Enter an instruction: ";
-    cin>>instruction;
-    computer.Execute(instruction);
-    computer.PrintState();
+	string instruction;
+	Computer computer;
 
-  }
-  return 0;
+	while(instruction != "EndProgram")
+	{
+		cout<<"Enter an instruction: ";
+		cin>>instruction;
+		computer.Execute(instruction);
+		computer.PrintState();
+
+	}
+	return 0;
 }
