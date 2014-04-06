@@ -24,10 +24,6 @@ Computer::Computer()
 	  FPU fpu = new FPU();
 	  RegisterFile regFile = new RegisterFile();
 }
-private Memory mem;
-private ALU alu;
-private FPU fpu;
-private RegisterFile regFile;
 
 private string* Computer::TokenizeInstruction(string instruction)
 {
