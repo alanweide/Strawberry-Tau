@@ -25,7 +25,7 @@ Computer::Computer()
 	  RegisterFile regFile = new RegisterFile();
 }
 
-private string* Computer::TokenizeInstruction(string instruction)
+string* Computer::TokenizeInstruction(string instruction)
 {
 	return instruction;
 }
