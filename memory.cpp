@@ -7,3 +7,19 @@
 //
 
 #include "memory.h"
+
+	Memory::Memory()
+	{
+
+	}
+
+	long Memory::ReadAddress(long address)
+	{
+
+	}
+
+	long Memory::WriteToAddress(long address)
+	{
+
+	}
+

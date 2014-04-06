@@ -2,7 +2,7 @@
 
 FPU::FPU()
 {
-	
+
 }
 
 double FPU::Add(double a, double b)

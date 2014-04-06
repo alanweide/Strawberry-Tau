@@ -1,17 +1,18 @@
 #ifndef REGISTER_FILE_H
 #define REGISTER_FILE_H
 
-#include "circuit.h"
+#include <string>
 
-class RegisterFile:public Circuit
+class RegisterFile
 {
 public:
-  RegisterFile();
-  int ReadOneRegister(int address);
-  int* ReadTwoRegisters(int address1, int address2);
-  int Write(int address);  
+	RegisterFile();
+	long ReadOneRegister(string address);
+	long* ReadTwoRegisters(string address1, string address2);
+	void Write(string address);
+	int findRegister(string address);
 private:
-  
+	long registers[16];
 };
 
 #endif

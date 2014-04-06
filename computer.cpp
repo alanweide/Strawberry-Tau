@@ -17,7 +17,7 @@
 
 Computer::Computer()
 {
-	
+
 }
 
 private Memory mem;
@@ -38,5 +38,5 @@ void Execute(string instruction)
 
 void PrintState(void)
 {
-	
+
 }
