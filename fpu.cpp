@@ -23,7 +23,7 @@ double FPU::Multiply(double a, double b)
 double* FPU::Divide(double a, double b)
 {
 	double quotient=a/b;
-	double remainder=a%b;
+	double remainder=a - ((int) quotient) * b;
 	double answer[2]={quotient,remainder};
 	return answer;
 }

@@ -28,10 +28,10 @@ long RegisterFile::ReadOneRegister(string address)
 
 long* RegisterFile::ReadTwoRegisters(string address1, string address2)
 {
-	int addr1 = this->findRegister(address1);
-	int addr2 = this->findRegister(address2);
-	long vals = {registers[addr1], registers[addr2]};
-	return *vals;
+	int reg1 = this->findRegister(address1);
+	int reg2 = this->findRegister(address2);
+	long vals[2] = {registers[reg1], registers[reg2]};
+	return vals;
 }
 
 void RegisterFile::Write(string address, long value)

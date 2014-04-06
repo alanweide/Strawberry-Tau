@@ -19,15 +19,15 @@ using namespace std;
 
 Computer::Computer()
 {
-	  Memory mem = new Memory();
-	  ALU alu = new ALU();
-	  FPU fpu = new FPU();
-	  RegisterFile regFile = new RegisterFile();
+	  Memory* mem = new Memory();
+	  ALU* alu = new ALU();
+	  FPU* fpu = new FPU();
+	  RegisterFile* regFile = new RegisterFile();
 }
 
 string* Computer::TokenizeInstruction(string instruction)
 {
-	return instruction;
+	return &instruction;
 }
 
 void Computer::Execute(string instruction)
