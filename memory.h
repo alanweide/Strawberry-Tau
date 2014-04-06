@@ -8,6 +8,7 @@ public:
 	long ReadAddress(long address);
 	long WriteToAddress(long address);
 private:
+
 };
 
 #endif

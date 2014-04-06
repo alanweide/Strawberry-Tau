@@ -16,7 +16,7 @@
 
 Computer::Computer()
 {
-	
+
 }
 
 private Memory mem;
@@ -32,10 +32,10 @@ private string* InstructionTokenizer(string instruction)
 
 void Execute(string instruction)
 {
-	
+
 }
 
 void PrintState(void)
 {
-	
+
 }
