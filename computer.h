@@ -7,21 +7,24 @@
 #include "registerfile.h"
 #include <string>
 #include <iostream>
+#include <regex>
+
+using namespace std;
 
 using namespace std;
 
 class Computer
 {
 public:
-	Computer();
-	void Execute(string instruction);
-	void PrintState(void); // prints contents of regs, mem, etc.
+  Computer();
+  void Execute(string instruction);
+  void PrintState(void); // prints contents of regs, mem, etc.
 private:
-	Memory mem;
-	ALU alu;
-	FPU fpu;
-	RegisterFile regFile;
-	string* InstructionTokenizer(string instruction);
+  Memory mem;
+  ALU alu;
+  FPU fpu;
+  RegisterFile regFile;
+	string* TokenizeInstruction(string instruction);
 };
 
 #endif
