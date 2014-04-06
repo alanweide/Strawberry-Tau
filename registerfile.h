@@ -3,16 +3,19 @@
 
 #include <string>
 
+using namespace std;
+
 class RegisterFile
 {
 public:
 	RegisterFile();
 	long ReadOneRegister(string address);
 	long* ReadTwoRegisters(string address1, string address2);
-	void Write(string address);
-	int findRegister(string address);
+	void Write(string address, long value);
+
 private:
 	long registers[16];
+	int findRegister(string address);
 };
 
 #endif

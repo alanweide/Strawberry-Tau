@@ -10,6 +10,8 @@
 #include <string>
 #include <iostream>
 
+using namespace std;
+
 RegisterFile::RegisterFile()
 {
 	for (int i = 0; i < 16; i++)
@@ -32,76 +34,77 @@ long* RegisterFile::ReadTwoRegisters(string address1, string address2)
 	return *vals;
 }
 
-void RegisterFile::Write(string address)
+void RegisterFile::Write(string address, long value)
 {
-
+	int addr = this->findRegister(address);
+	registers[addr] = value;
 }
 
 int RegisterFile::findRegister(string address)
 {
 	if (address.compare("reg0") == 0)
 	{
-		return registers[0];
+		return 0;
 	}
 	else if (address.compare("reg1") == 0)
 	{
-		return registers[1];
+		return 1;
 	}
 	else if (address.compare("reg2") == 0)
 	{
-		return registers[2];
+		return 2;
 	}
 	else if (address.compare("reg3") == 0)
 	{
-		return registers[3];
+		return 3;
 	}
 	else if (address.compare("reg4") == 0)
 	{
-		return registers[4];
+		return 4;
 	}
 	else if (address.compare("reg5") == 0)
 	{
-		return registers[5];
+		return 5;
 	}
 	else if (address.compare("reg6") == 0)
 	{
-		return registers[6];
+		return 6;
 	}
 	else if (address.compare("reg7") == 0)
 	{
-		return registers[7];
+		return 7;
 	}
 	else if (address.compare("reg8") == 0)
 	{
-		return registers[8];
+		return 8;
 	}
 	else if (address.compare("reg9") == 0)
 	{
-		return registers[9];
+		return 9;
 	}
 	else if (address.compare("reg10") == 0)
 	{
-		return registers[10];
+		return 10;
 	}
 	else if (address.compare("reg11") == 0)
 	{
-		return registers[11];
+		return 11;
 	}
 	else if (address.compare("reg12") == 0)
 	{
-		return registers[12];
+		return 12;
 	}
 	else if (address.compare("reg13") == 0)
 	{
-		return registers[13];
+		return 13;
 	}
 	else if (address.compare("reg14") == 0)
 	{
-		return registers[14];
+		return 14;
 	}
 	else if (address.compare("reg15") == 0)
 	{
-		return registers[15];
+		return 15;
 	}
 	else
 	{
