@@ -13,7 +13,7 @@
 #include "registerfile.h"
 #include <string>
 #include <iostream>
-//#include <regex>
+#include <regex>
 
 using namespace std;
 
@@ -110,6 +110,7 @@ mnemonic mnemonify (string mnem) {
 string* Computer::TokenizeInstruction(string instruction)
 {
 	string tokens[4];
+	regex instRx("ello");
 	return tokens;
 }
 
