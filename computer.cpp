@@ -124,7 +124,8 @@ string* Computer::TokenizeInstruction(string instruction)
 
 void Computer::Execute(string instruction)
 {
-	string* tokens = TokenizeInstruction (instruction);
+	string* tokens = (string*) malloc(32);
+	tokens = TokenizeInstruction (instruction);
 	long output[3]; // long values of argument registers after execution
 
 	// convert strings to char* for output in printf statement
@@ -144,7 +145,9 @@ void Computer::Execute(string instruction)
 	bool twoReg = true;
 
 	// initialize longs to store register values
-	long regA, regB, regSrcs[2];
+	long regA, regB, imm;
+	long *regSrcs = (long*) malloc(4);
+	long *divRes = (long*) malloc(4);
 
 	switch (mnem) {
 	case add:
@@ -158,7 +161,7 @@ void Computer::Execute(string instruction)
 		break;
 	case addi:
 		regB = regFile.ReadOneRegister(tokens[2]);
-		long imm = atol(args[2]);
+		imm = atol(args[2]);
 		regA = alu.Add(regB, imm);
 		regFile.Write(tokens[1], regA);
 		output[0] = regA;
@@ -175,7 +178,7 @@ void Computer::Execute(string instruction)
 		break;
 	case subi:
 		regB = regFile.ReadOneRegister(tokens[2]);
-		long imm = atol(args[2]);
+		imm = atol(args[2]);
 		regA = alu.Subtract(regB, imm);
 		regFile.Write(tokens[1], regA);
 		output[0] = regA;
@@ -192,7 +195,7 @@ void Computer::Execute(string instruction)
 		break;
 	case muli:
 		regB = regFile.ReadOneRegister(tokens[2]);
-		long imm = atol(args[2]);
+		imm = atol(args[2]);
 		regA = alu.Multiply((int)regB, (int)imm);
 		regFile.Write(tokens[1], regA);
 		output[0] = regA;
@@ -201,7 +204,8 @@ void Computer::Execute(string instruction)
 	case divd:
 		twoReg = false;
 		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
-		regA = alu.Divide(regSrcs[0], regSrcs[1]);
+		divRes = alu.Divide(regSrcs[0], regSrcs[1]);
+		regA = divRes[0];
 		regFile.Write(tokens[1], regA);
 		output[0] = regA;
 		output[1] = regSrcs[0];
@@ -209,8 +213,9 @@ void Computer::Execute(string instruction)
 		break;
 	case divi:
 		regB = regFile.ReadOneRegister(tokens[2]);
-		long imm = atol(args[2]);
-		regA = alu.Divide(regB, imm);
+		imm = atol(args[2]);
+		divRes = alu.Divide(regB, imm);
+		regA = divRes[0];
 		regFile.Write(tokens[1], regA);
 		output[0] = regA;
 		output[1] = regB;
@@ -275,11 +280,11 @@ void Computer::Execute(string instruction)
 	}
 	if (!err) {
 		if (twoReg) {
-			printf("Instruction: %s\nRegister contents:\n  %s: %d\n  %s: %d\n",
+			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
 					inst, args[0], output[0],
 					args[1], output[1]);
 		} else {
-			printf("Instruction: %s\nRegister contents:\n  %s: %d\n  %s: %d\n  %s: %d\n",
+			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
 					inst, args[0], output[0],
 					args[1], output[1],
 					args[2], output[2]);
