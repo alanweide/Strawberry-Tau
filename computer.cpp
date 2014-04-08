@@ -111,7 +111,7 @@ string* Computer::TokenizeInstruction(string instruction)
 {
 	cmatch cmTokens;
 	string* tokens;
-	regex instRx("(\w)+\s+(reg\d\d)\s+(reg\d\d)\s*(\w*)$");
+	regex instRx("(\w)+\s+(reg\d\d)\s+(reg\d\d)\s*(\w*)($|)");
 	regex_search(instruction.c_str(),
 			cmTokens,
 			instRx,
@@ -125,7 +125,7 @@ string* Computer::TokenizeInstruction(string instruction)
 void Computer::Execute(string instruction)
 {
 	string* tokens = TokenizeInstruction (instruction);
-	int output[3]; // integer values of argument registers after execution
+	long output[3]; // long values of argument registers after execution
 
 	// convert strings to char* for output in printf statement
 	// Is there a better way to do this?
@@ -143,34 +143,77 @@ void Computer::Execute(string instruction)
 	bool err = false;
 	bool twoReg = true;
 
+	// initialize longs to store register values
+	long regA, regB, regSrcs[2];
+
 	switch (mnem) {
 	case add:
 		twoReg = false;
-
+		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
+		regA = alu.Add(regSrcs[0], regSrcs[1]);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regSrcs[0];
+		output[2] = regSrcs[1];
 		break;
 	case addi:
-
+		regB = regFile.ReadOneRegister(tokens[2]);
+		long imm = atol(args[2]);
+		regA = alu.Add(regB, imm);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regB;
 		break;
 	case sub:
 		twoReg = false;
-
+		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
+		regA = alu.Subtract(regSrcs[0], regSrcs[1]);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regSrcs[0];
+		output[2] = regSrcs[1];
 		break;
 	case subi:
-
+		regB = regFile.ReadOneRegister(tokens[2]);
+		long imm = atol(args[2]);
+		regA = alu.Subtract(regB, imm);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regB;
 		break;
 	case mul:
 		twoReg = false;
-
+		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
+		regA = alu.Multiply((int)regSrcs[0], (int)regSrcs[1]);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regSrcs[0];
+		output[2] = regSrcs[1];
 		break;
 	case muli:
-
+		regB = regFile.ReadOneRegister(tokens[2]);
+		long imm = atol(args[2]);
+		regA = alu.Multiply((int)regB, (int)imm);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regB;
 		break;
 	case divd:
 		twoReg = false;
-
+		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
+		regA = alu.Divide(regSrcs[0], regSrcs[1]);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regSrcs[0];
+		output[2] = regSrcs[1];
 		break;
 	case divi:
-
+		regB = regFile.ReadOneRegister(tokens[2]);
+		long imm = atol(args[2]);
+		regA = alu.Divide(regB, imm);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regB;
 		break;
 	case fadd:
 		twoReg = false;

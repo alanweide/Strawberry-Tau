@@ -5,25 +5,27 @@ ALU::ALU()
 
 }
 
-int ALU::Add(int a, int b)
+long ALU::Add(long a, long b)
 {
 	return a+b;
 }
 
-int* ALU::Divide(int a, int b)
+long* ALU::Divide(long a, long b)
 {
-	int quotient=a/b;
-	int remainder=a%b;
-	int answer[2]={quotient,remainder};
+	long quotient=a/b;
+	long remainder=a%b;
+	long answer[2]={quotient,remainder};
 	return answer;
 }
 
-int ALU::Multiply(int a, int b)
+long ALU::Multiply(int a, int b)
 {
+	// I'm leaving the parameters as ints so we don't have to
+	// worry about overflow if we multiply two large long values
 	return a*b;
 }
 
-int ALU::Subtract(int a, int b)
+long ALU::Subtract(long a, long b)
 {
 	return a-b;
 }

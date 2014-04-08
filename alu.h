@@ -5,14 +5,12 @@ class ALU
 {
 public:
 	ALU();
-	int Add(int a, int b); // a+b
-	int Subtract(int a, int b); // a-b
-	int Multiply(int a, int b); // a*b
-	int* Divide(int a, int b); // returns array containing quotient and remainder
+	long Add(long a, long b); // a+b
+	long Subtract(long a, long b); // a-b
+	long Multiply(int a, int b); // a*b
+	long* Divide(long a, long b); // returns array containing quotient and remainder
 private:
 	// ?
 };
-
-// aos;dofjaidl
 
 #endif
