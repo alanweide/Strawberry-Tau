@@ -109,8 +109,16 @@ mnemonic mnemonify (string mnem) {
 
 string* Computer::TokenizeInstruction(string instruction)
 {
-	string tokens[4];
-	regex instRx("ello");
+	cmatch cmTokens;
+	string* tokens;
+	regex instRx("(\w)+\s+(reg\d\d)\s+(reg\d\d)\s*(\w*)$");
+	regex_search(instruction.c_str(),
+			cmTokens,
+			instRx,
+			regex_constants::match_default);
+	for (int i = 0; i < cmTokens.length(); i++) {
+		tokens[i] = cmTokens[i];
+	}
 	return tokens;
 }
 
