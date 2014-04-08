@@ -133,11 +133,10 @@ void Computer::Execute(string instruction)
 	// Regardless, there's a runtime error on the second strdup()
 	// call in the initialization of args :(
 	char* inst = strdup(tokens[0].c_str());
-	char* args[3] = {
-						strdup (tokens[1].c_str()),
-						strdup (tokens[2].c_str()),
-						strdup (tokens[3].c_str())
-					};
+	char* args[3] = {new char[6], new char[6], new char[10]};
+	strcpy (args[0], tokens[1].c_str());
+	strcpy (args[1], tokens[2].c_str());
+	strcpy (args[2], tokens[3].c_str());
 	// convert instruction string to mnemonic enum for switch
 	mnemonic mnem = mnemonify (tokens[0]);
 
