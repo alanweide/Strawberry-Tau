@@ -47,10 +47,10 @@ enum mnemonic {
 
 Computer::Computer()
 {
-	  Memory* mem = new Memory();
-	  ALU* alu = new ALU();
-	  FPU* fpu = new FPU();
-	  RegisterFile* regFile = new RegisterFile();
+	Memory* mem = new Memory();
+	ALU* alu = new ALU();
+	FPU* fpu = new FPU();
+	RegisterFile* regFile = new RegisterFile();
 }
 
 mnemonic mnemonify (string mnem) {
@@ -136,7 +136,7 @@ string* Computer::TokenizeInstruction(string instruction)
 	}
 	cout << "last reg: " << tokens[3] << "\n";
 
-/*
+	/*
     smatch smTokens;
 	regex instRx ("^(\w+)\s(w+)\s(w+)\s(\w+)$");
 	bool match = regex_match(instruction,
@@ -149,7 +149,7 @@ string* Computer::TokenizeInstruction(string instruction)
 		cout << smTokens[i] << "\n";
 		tokens[i] = smTokens[i];
 	}
-*/
+	 */
 	return tokens;
 }
 
@@ -176,11 +176,17 @@ void Computer::Execute(string instruction)
 	// flags
 	bool err = false;
 	bool twoReg = true;
+	bool fp_op = false;
 
 	// initialize longs to store register values
 	long regA, regB, imm;
 	long *regSrcs = new long[2];
 	long *divRes = new long[2];
+
+	// initialize doubless to store register values
+	double fp_regA, fp_regB, fp_imm;
+	double *fp_regSrcs = new double[2];
+	double *fp_divRes = new double[2];
 
 	switch (mnem) {
 	case add:
@@ -255,44 +261,96 @@ void Computer::Execute(string instruction)
 		break;
 	case fadd:
 		twoReg = false;
-
+		fp_op = true;
+		regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
+		regA = alu.Add(regSrcs[0], regSrcs[1]);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regSrcs[0];
+		output[2] = regSrcs[1];
 		break;
 	case faddi:
-
+		fp_op = true;
+		regB = regFile.ReadOneRegister(tokens[2]);
+		imm = atod(args[2]);
+		regA = alu.Add(regB, imm);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regB;
 		break;
 	case fsub:
 		twoReg = false;
-
+		fp_op = true;
+		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
+		regA = alu.Subtract(regSrcs[0], regSrcs[1]);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regSrcs[0];
+		output[2] = regSrcs[1];
 		break;
 	case fsubi:
-
+		fp_op = true;
+		regB = regFile.ReadOneRegister(tokens[2]);
+		imm = atol(args[2]);
+		regA = alu.Subtract(regB, imm);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regB;
 		break;
 	case fmul:
 		twoReg = false;
-
+		fp_op = true;
+		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
+		regA = alu.Multiply((int)regSrcs[0], (int)regSrcs[1]);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regSrcs[0];
+		output[2] = regSrcs[1];
 		break;
 	case fmuli:
-
+		fp_op = true;
+		regB = regFile.ReadOneRegister(tokens[2]);
+		imm = atol(args[2]);
+		regA = alu.Multiply((int)regB, (int)imm);
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regB;
 		break;
 	case fdiv:
 		twoReg = false;
-
+		fp_op = true;
+		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
+		divRes = alu.Divide(regSrcs[0], regSrcs[1]);
+		regA = divRes[0];
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regSrcs[0];
+		output[2] = regSrcs[1];
 		break;
 	case fdivi:
-
+		fp_op = true;
+		regB = regFile.ReadOneRegister(tokens[2]);
+		imm = atol(args[2]);
+		divRes = alu.Divide(regB, imm);
+		regA = divRes[0];
+		regFile.Write(tokens[1], regA);
+		output[0] = regA;
+		output[1] = regB;
 		break;
 	case sqrt:
+		fp_op = true;
 
 		break;
 	case sin:
+		fp_op = true;
 
 		break;
 	case exp:
 		twoReg = false;
-
+		fp_op = true;
 		break;
 	case expi:
-
+		fp_op = true;
 		break;
 	case memld:
 
