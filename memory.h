@@ -10,7 +10,7 @@ public:
 	long ReadAddress(long address);
 	void WriteToAddress(long address, long value);
 private:
-	long mem[32];
+	long* mem;
 };
 
 #endif

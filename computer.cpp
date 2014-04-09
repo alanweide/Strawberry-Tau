@@ -56,51 +56,51 @@ Computer::Computer()
 mnemonic mnemonify (string mnem) {
 	if (mnem.compare("add") == 0) {
 		return add;
-	} else if (mnem == "addi") {
+	} else if (mnem.compare("addi") == 0) {
 		return addi;
-	} else if (mnem == "sub") {
+	} else if (mnem.compare("sub") == 0) {
 		return sub;
-	} else if (mnem == "subi") {
+	} else if (mnem.compare("subi") == 0) {
 		return subi;
-	} else if (mnem == "mul") {
+	} else if (mnem.compare("mul") == 0) {
 		return mul;
-	} else if (mnem == "muli") {
+	} else if (mnem.compare("muli") == 0) {
 		return muli;
-	} else if (mnem == "div") {
+	} else if (mnem.compare("div") == 0) {
 		return divd;
-	} else if (mnem == "divi") {
+	} else if (mnem.compare("divi") == 0) {
 		return divi;
-	} else if (mnem == "fadd") {
+	} else if (mnem.compare("fadd") == 0) {
 		return fadd;
-	} else if (mnem == "faddi") {
+	} else if (mnem.compare("faddi") == 0) {
 		return faddi;
-	} else if (mnem == "fsub") {
+	} else if (mnem.compare("fsub") == 0) {
 		return fsub;
-	} else if (mnem == "fsubi") {
+	} else if (mnem.compare("fsubi") == 0) {
 		return fsubi;
-	} else if (mnem == "fmul") {
+	} else if (mnem.compare("fmul") == 0) {
 		return fmul;
-	} else if (mnem == "fmuli") {
+	} else if (mnem.compare("fmuli") == 0) {
 		return fmuli;
-	} else if (mnem == "fdiv") {
+	} else if (mnem.compare("fdiv") == 0) {
 		return fdiv;
-	} else if (mnem == "fdivi") {
+	} else if (mnem.compare("fdivi") == 0) {
 		return fdivi;
-	} else if (mnem == "sqrt") {
+	} else if (mnem.compare("sqrt") == 0) {
 		return sqrt;
-	} else if (mnem == "sin") {
+	} else if (mnem.compare("sin") == 0) {
 		return sin;
-	} else if (mnem == "exp") {
+	} else if (mnem.compare("exp") == 0) {
 		return exp;
-	} else if (mnem == "expi") {
+	} else if (mnem.compare("expi") == 0) {
 		return expi;
-	} else if (mnem == "memld") {
+	} else if (mnem.compare("memld") == 0) {
 		return memld;
-	} else if (mnem == "memst") {
+	} else if (mnem.compare("memst") == 0) {
 		return memst;
-	} else if (mnem == "regld") {
+	} else if (mnem.compare("regld") == 0) {
 		return regld;
-	} else if (mnem == "regst") {
+	} else if (mnem.compare("regst") == 0) {
 		return regst;
 	} else {
 		return nop;

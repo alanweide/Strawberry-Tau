@@ -12,7 +12,7 @@ using namespace std;
 
 Memory::Memory()
 {
-
+	mem = new long[256];
 }
 
 long Memory::ReadAddress(long address)
