@@ -332,7 +332,7 @@ void Computer::Execute(string instruction)
 		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_imm = atof(args[2]);
-		divRes = fpu.Divide(fp_regB, fp_imm);
+		fp_divRes = fpu.Divide(fp_regB, fp_imm);
 		fp_regA = divRes[0];
 		regFile.WriteFP(tokens[1], fp_regA);
 		fp_output[0] = fp_regA;
@@ -388,12 +388,16 @@ void Computer::Execute(string instruction)
 		if (!fp_op)
 		{
 			if (twoReg) {
-				cout << "Instruction: " + inst + "\nRegister contents:\n  " + args[0] + ": " + output[0] + "\n  " + args[1] + ": " + output[1] + "\n";
+				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
+						args[0] << ": " << output[0] << "\n  "
+						<< args[1] << ": " << output[1] << "\n";
 				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
 				//					inst, args[0], output[0],
 				//					args[1], output[1]);
 			} else {
-				cout << "Instruction: " + inst + "\nRegister contents:\n  " + args[0] + ": " + output[0] + "\n  " + args[1] + ": " + output[1] + "\n  " + args[2] + ": " + output[2] + "\n";
+				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
+						args[0] << ": " << output[0] << "\n  " << args[1] + ": " <<
+						output[1] << "\n  " << args[2] << ": " << output[2] << "\n";
 				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
 				//					inst, args[0], output[0],
 				//					args[1], output[1],
@@ -403,12 +407,17 @@ void Computer::Execute(string instruction)
 		else
 		{
 			if (twoReg) {
-				cout << "Instruction: " + inst + "\nRegister contents:\n  " + args[0] + ": " + fp_output[0] + "\n  " + args[1] + ": " + fp_output[1] + "\n";
+				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
+						args[0] << ": " << fp_output[0] << "\n  " <<
+						args[1] << ": " << fp_output[1] << "\n";
 				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
 				//					inst, args[0], output[0],
 				//					args[1], output[1]);
 			} else {
-				cout << "Instruction: " + inst + "\nRegister contents:\n  " + args[0] + ": " + fp_output[0] + "\n  " + args[1] + ": " + fp_output[1] + "\n  " + args[2] + ": " + fp_output[2] + "\n";
+				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
+						args[0] << ": " << fp_output[0] << "\n  " <<
+						args[1] << ": " << fp_output[1] << "\n  " <<
+						args[2] << ": " << fp_output[2] << "\n";
 				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
 				//					inst, args[0], output[0],
 				//					args[1], output[1],
