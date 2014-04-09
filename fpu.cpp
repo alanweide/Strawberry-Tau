@@ -42,7 +42,7 @@ double FPU::Sin(double a)
 	return ans;
 }
 
-double FPU::Exp(double a)
+double FPU::Exp(double a, double b)
 {
 	double ans;
 	// implement Taylor series for Exponent

@@ -14,6 +14,7 @@
 #include <string>
 #include <iostream>
 #include <regex>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -47,10 +48,10 @@ enum mnemonic {
 
 Computer::Computer()
 {
-	  Memory* mem = new Memory();
-	  ALU* alu = new ALU();
-	  FPU* fpu = new FPU();
-	  RegisterFile* regFile = new RegisterFile();
+	Memory* mem = new Memory();
+	ALU* alu = new ALU();
+	FPU* fpu = new FPU();
+	RegisterFile* regFile = new RegisterFile();
 }
 
 mnemonic mnemonify (string mnem) {
@@ -136,7 +137,7 @@ string* Computer::TokenizeInstruction(string instruction)
 	}
 	cout << "last reg: " << tokens[3] << "\n";
 
-/*
+	/*
     smatch smTokens;
 	regex instRx ("^(\w+)\s(w+)\s(w+)\s(\w+)$");
 	bool match = regex_match(instruction,
@@ -149,7 +150,7 @@ string* Computer::TokenizeInstruction(string instruction)
 		cout << smTokens[i] << "\n";
 		tokens[i] = smTokens[i];
 	}
-*/
+	 */
 	return tokens;
 }
 
@@ -157,11 +158,11 @@ void Computer::Execute(string instruction)
 {
 	string* tokens = TokenizeInstruction (instruction);
 	long output[3]; // long values of argument registers after execution
-
+	double fp_output[3]; // double values of argument registers after execution
 	// convert strings to char* for output in printf statement
 	// Is there a better way to do this?
 	char* inst = strdup(tokens[0].c_str());
-	char** args = new char*[3];
+	char** args = new char*[6];
 	args[0] = strdup(tokens[1].c_str());
 	args[1] = strdup(tokens[2].c_str());
 	args[2] = strdup(tokens[3].c_str());
@@ -176,11 +177,17 @@ void Computer::Execute(string instruction)
 	// flags
 	bool err = false;
 	bool twoReg = true;
+	bool fp_op = false;
 
 	// initialize longs to store register values
 	long regA, regB, imm;
 	long *regSrcs = new long[2];
 	long *divRes = new long[2];
+
+	// initialize doubless to store register values
+	double fp_regA, fp_regB, fp_imm;
+	double *fp_regSrcs = new double[2];
+	double *fp_divRes = new double[2];
 
 	switch (mnem) {
 	case add:
@@ -255,44 +262,110 @@ void Computer::Execute(string instruction)
 		break;
 	case fadd:
 		twoReg = false;
-
+		fp_op = true;
+		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
+		fp_regA = fpu.Add(fp_regSrcs[0], fp_regSrcs[1]);
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regSrcs[0];
+		fp_output[2] = fp_regSrcs[1];
 		break;
 	case faddi:
-
+		fp_op = true;
+		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
+		fp_imm = atof(args[2]);
+		fp_regA = fpu.Add(fp_regB, fp_imm);
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regB;
 		break;
 	case fsub:
 		twoReg = false;
-
+		fp_op = true;
+		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
+		fp_regA = fpu.Subtract(regSrcs[0], fp_regSrcs[1]);
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regSrcs[0];
+		fp_output[2] = fp_regSrcs[1];
 		break;
 	case fsubi:
-
+		fp_op = true;
+		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
+		fp_imm = atof(args[2]);
+		fp_regA = fpu.Subtract(fp_regB, fp_imm);
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regB;
 		break;
 	case fmul:
 		twoReg = false;
-
+		fp_op = true;
+		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
+		// ?fp_regA = fpu.Multiply((int)fp_regSrcs[0], (int)fp_regSrcs[1]);
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regSrcs[0];
+		fp_output[2] = fp_regSrcs[1];
 		break;
 	case fmuli:
-
+		fp_op = true;
+		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
+		fp_imm = atof(args[2]);
+		// ?fp_regA = fpu.Multiply((int)fp_regB, (int)fp_imm);
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regB;
 		break;
 	case fdiv:
 		twoReg = false;
-
+		fp_op = true;
+		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
+		fp_divRes = fpu.Divide(regSrcs[0], regSrcs[1]);
+		fp_regA = fp_divRes[0];
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regSrcs[0];
+		fp_output[2] = fp_regSrcs[1];
 		break;
 	case fdivi:
-
+		fp_op = true;
+		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
+		fp_imm = atof(args[2]);
+		divRes = fpu.Divide(fp_regB, fp_imm);
+		fp_regA = divRes[0];
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regB;
 		break;
 	case sqrt:
-
+		fp_op = true;
+		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
+		fp_regA = fpu.SquareRoot(fp_regB);
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regB;
 		break;
 	case sin:
-
+		fp_op = true;
+		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
+		fp_regA = fpu.Sin(fp_regB);
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regB;
 		break;
 	case exp:
 		twoReg = false;
-
+		fp_op = true;
+		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
+		fp_regA = fpu.Exp(fp_regSrcs[0], fp_regSrcs[1]);
+		regFile.WriteFP(tokens[1], fp_regA);
+		fp_output[0] = fp_regA;
+		fp_output[1] = fp_regSrcs[0];
+		fp_output[2] = fp_regSrcs[1];
 		break;
 	case expi:
-
+		fp_op = true;
 		break;
 	case memld:
 
@@ -312,15 +385,35 @@ void Computer::Execute(string instruction)
 		break;
 	}
 	if (!err) {
-		if (twoReg) {
-			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
-					inst, args[0], output[0],
-					args[1], output[1]);
-		} else {
-			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
-					inst, args[0], output[0],
-					args[1], output[1],
-					args[2], output[2]);
+		if (!fp_op)
+		{
+			if (twoReg) {
+				cout << "Instruction: " + inst + "\nRegister contents:\n  " + args[0] + ": " + output[0] + "\n  " + args[1] + ": " + output[1] + "\n";
+				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
+				//					inst, args[0], output[0],
+				//					args[1], output[1]);
+			} else {
+				cout << "Instruction: " + inst + "\nRegister contents:\n  " + args[0] + ": " + output[0] + "\n  " + args[1] + ": " + output[1] + "\n  " + args[2] + ": " + output[2] + "\n";
+				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
+				//					inst, args[0], output[0],
+				//					args[1], output[1],
+				//					args[2], output[2]);
+			}
+		}
+		else
+		{
+			if (twoReg) {
+				cout << "Instruction: " + inst + "\nRegister contents:\n  " + args[0] + ": " + fp_output[0] + "\n  " + args[1] + ": " + fp_output[1] + "\n";
+				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
+				//					inst, args[0], output[0],
+				//					args[1], output[1]);
+			} else {
+				cout << "Instruction: " + inst + "\nRegister contents:\n  " + args[0] + ": " + fp_output[0] + "\n  " + args[1] + ": " + fp_output[1] + "\n  " + args[2] + ": " + fp_output[2] + "\n";
+				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
+				//					inst, args[0], output[0],
+				//					args[1], output[1],
+				//					args[2], output[2]);
+			}
 		}
 	}
 	delete[] inst;
@@ -331,6 +424,8 @@ void Computer::Execute(string instruction)
 	delete[] tokens;
 	delete[] regSrcs;
 	delete[] divRes;
+	delete[] fp_regSrcs;
+	delete[] fp_divRes;
 }
 
 void Computer::PrintState(void)
