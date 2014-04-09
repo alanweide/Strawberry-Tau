@@ -67,7 +67,9 @@ double* RegisterFile::ReadTwoFPRegisters(string fregA, string fregB)
 {
 	int reg1 = this->findFPRegister(fregA);
 	int reg2 = this->findFPRegister(fregB);
-	double vals[2] = {fregisters[reg1], fregisters[reg2]};
+	double* vals = new double[2];
+	vals[0] = fregisters[reg1];
+	vals[1] = fregisters[reg2];
 	return vals;
 }
 
@@ -78,7 +80,7 @@ void RegisterFile::WriteFP(string freg, double value)
 	{
 		cout << "Cannot write to reg0 (constant 0)";
 	}
-	else if (fregNo == NULL)
+	else if (fregNo == -1)
 	{
 		cout << "Invalid Register name. address = " + freg;
 	}

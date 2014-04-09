@@ -302,7 +302,7 @@ void Computer::Execute(string instruction)
 		twoReg = false;
 		fp_op = true;
 		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
-		// ?fp_regA = fpu.Multiply((int)fp_regSrcs[0], (int)fp_regSrcs[1]);
+		fp_regA = fpu.Multiply((int)fp_regSrcs[0], (int)fp_regSrcs[1]);
 		regFile.WriteFP(tokens[1], fp_regA);
 		fp_output[0] = fp_regA;
 		fp_output[1] = fp_regSrcs[0];
@@ -312,7 +312,7 @@ void Computer::Execute(string instruction)
 		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_imm = atof(args[2]);
-		// ?fp_regA = fpu.Multiply((int)fp_regB, (int)fp_imm);
+		fp_regA = fpu.Multiply((int)fp_regB, (int)fp_imm);
 		regFile.WriteFP(tokens[1], fp_regA);
 		fp_output[0] = fp_regA;
 		fp_output[1] = fp_regB;
