@@ -396,7 +396,7 @@ void Computer::Execute(string instruction)
 				//					args[1], output[1]);
 			} else {
 				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
-						args[0] << ": " << output[0] << "\n  " << args[1] + ": " <<
+						args[0] << ": " << output[0] << "\n  " << args[1] << ": " <<
 						output[1] << "\n  " << args[2] << ": " << output[2] << "\n";
 				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
 				//					inst, args[0], output[0],
