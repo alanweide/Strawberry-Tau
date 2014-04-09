@@ -10,11 +10,11 @@ int main(void) {
 
 	while(instruction != "EndProgram")
 	{
-		cout<<"Enter an instruction: ";
-		cin>>instruction;
+		cout << "Enter an instruction: ";
+		getline (cin, instruction);
+		cout << instruction << "\n";
 		computer.Execute(instruction);
 		computer.PrintState();
-
 	}
 	return 0;
 }

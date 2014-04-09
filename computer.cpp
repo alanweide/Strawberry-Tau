@@ -54,7 +54,7 @@ Computer::Computer()
 }
 
 mnemonic mnemonify (string mnem) {
-	if (mnem == "add") {
+	if (mnem.compare("add") == 0) {
 		return add;
 	} else if (mnem == "addi") {
 		return addi;
@@ -109,35 +109,68 @@ mnemonic mnemonify (string mnem) {
 
 string* Computer::TokenizeInstruction(string instruction)
 {
-	cmatch cmTokens;
-	string* tokens;
-	regex instRx("(\w)+\s+(reg\d\d)\s+(reg\d\d)\s*(\w*)($|)");
-	regex_search(instruction.c_str(),
-			cmTokens,
+	instruction += '\0';
+	string* tokens = new string[4];
+	int i = 0;
+	while (instruction[i] != ' ') {
+		tokens[0] += instruction[i];
+		i++;
+	}
+	i++;
+	cout << tokens[0] << "\n";
+	while (instruction[i] != ' ') {
+		tokens[1] += instruction[i];
+		i++;
+	}
+	i++;
+	cout << "first reg: " << tokens[1] << "\n";
+	while (instruction[i] != ' ') {
+		tokens[2] += instruction[i];
+		i++;
+	}
+	i++;
+	cout << "second reg: " << tokens[2] << "\n";
+	while (instruction[i] != '\0') {
+		tokens[3] += instruction[i];
+		i++;
+	}
+	cout << "last reg: " << tokens[3] << "\n";
+
+/*
+    smatch smTokens;
+	regex instRx ("^(\w+)\s(w+)\s(w+)\s(\w+)$");
+	bool match = regex_match(instruction,
+			smTokens,
 			instRx,
 			regex_constants::match_default);
-	for (int i = 0; i < cmTokens.length(); i++) {
-		tokens[i] = cmTokens[i];
+	cout << match << "\n";
+	cout << "smTokens size: " << smTokens.size() << "\n";
+	for (int i = 0; i < smTokens.size(); i++) {
+		cout << smTokens[i] << "\n";
+		tokens[i] = smTokens[i];
 	}
+*/
 	return tokens;
 }
 
 void Computer::Execute(string instruction)
 {
-	string* tokens = (string*) malloc(32);
-	tokens = TokenizeInstruction (instruction);
+	string* tokens = TokenizeInstruction (instruction);
 	long output[3]; // long values of argument registers after execution
 
 	// convert strings to char* for output in printf statement
 	// Is there a better way to do this?
-	// Regardless, there's a runtime error on the second strdup()
-	// call in the initialization of args :(
 	char* inst = strdup(tokens[0].c_str());
-	char* args[3] = {new char[6], new char[6], new char[10]};
-	strcpy (args[0], tokens[1].c_str());
-	strcpy (args[1], tokens[2].c_str());
-	strcpy (args[2], tokens[3].c_str());
+	char** args = new char*[3];
+	args[0] = strdup(tokens[1].c_str());
+	args[1] = strdup(tokens[2].c_str());
+	args[2] = strdup(tokens[3].c_str());
+	//strcpy (args[0], tokens[1].c_str());
+	//strcpy (args[1], tokens[2].c_str());
+	//strcpy (args[2], tokens[3].c_str());
+
 	// convert instruction string to mnemonic enum for switch
+	cout << tokens[0] << "\n";
 	mnemonic mnem = mnemonify (tokens[0]);
 
 	// flags
@@ -146,8 +179,8 @@ void Computer::Execute(string instruction)
 
 	// initialize longs to store register values
 	long regA, regB, imm;
-	long *regSrcs = (long*) malloc(4);
-	long *divRes = (long*) malloc(4);
+	long *regSrcs = new long[2];
+	long *divRes = new long[2];
 
 	switch (mnem) {
 	case add:
@@ -290,13 +323,14 @@ void Computer::Execute(string instruction)
 					args[2], output[2]);
 		}
 	}
-	free (inst);
+	delete[] inst;
 	free (args[0]);
 	free (args[1]);
 	free (args[2]);
-	free (tokens);
-	free (regSrcs);
-	free (divRes);
+	delete[] args;
+	delete[] tokens;
+	delete[] regSrcs;
+	delete[] divRes;
 }
 
 void Computer::PrintState(void)
