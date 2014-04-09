@@ -24,27 +24,29 @@ double* FPU::Divide(double a, double b)
 {
 	double quotient= a/b;
 	double remainder= a - ((int)quotient * b);
-	double answer[2]={quotient,remainder};
+	double* answer = new double[2];
+	answer[0] = quotient;
+	answer[1] = remainder;
 	return answer;
 }
 
 double FPU::SquareRoot(double a)
 {
-	double ans;
+	double ans = 1;
 	// implement Taylor series for square root
 	return ans;
 }
 
 double FPU::Sin(double a)
 {
-	double ans;
+	double ans = 0;
 	// implement Taylor series for Sine
 	return ans;
 }
 
 double FPU::Exp(double a, double b)
 {
-	double ans;
+	double ans = 1;
 	// implement Taylor series for Exponent
 	return ans;
 }

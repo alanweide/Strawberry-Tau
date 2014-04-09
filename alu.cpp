@@ -14,7 +14,9 @@ long* ALU::Divide(long a, long b)
 {
 	long quotient=a/b;
 	long remainder=a%b;
-	long answer[2]={quotient,remainder};
+	long* answer = new long[2];
+	answer[0] = quotient;
+	answer[1] = remainder;
 	return answer;
 }
 

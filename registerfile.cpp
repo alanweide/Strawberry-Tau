@@ -16,6 +16,7 @@ using namespace std;
 RegisterFile::RegisterFile()
 {
 	registers = new long[16];
+	fregisters = new double[16];
 	for (int i = 0; i < 16; i++)
 	{
 		registers[i] = 0;
