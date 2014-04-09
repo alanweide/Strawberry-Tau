@@ -20,8 +20,8 @@ public:
 	double* ReadTwoFPRegisters(string fregA, string fregB);
 	void WriteFP(string freg, double value);
 private:
-	long registers[16];
-	double fregisters[16];
+	long* registers;
+	double* fregisters;
 	int findRegister(string reg);
 	int findFPRegister(string freg);
 };
