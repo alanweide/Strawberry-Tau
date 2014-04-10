@@ -44,6 +44,7 @@ string RegisterFile::PrintRegs(void) {
 	}
 	while (i < 16) {
 		out += to_string(i) + ": " + to_string(fregisters[i]) + "\n";
+		i++;
 	}
 	out += "------------------------------------\n";
 	return out;
