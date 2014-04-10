@@ -39,10 +39,14 @@ enum mnemonic {
 	fsin,
 	fexp,
 	fexpi,
-	ld,
-	st,
-	fld,
-	fst,
+	memld,
+	memst,
+	fmemld,
+	fmemst,
+	regld,
+	regst,
+	fregld,
+	fregst,
 	nop
 };
 
@@ -95,15 +99,19 @@ mnemonic mnemonify (string mnem) {
 		return fexp;
 	} else if (mnem.compare("expi") == 0) {
 		return fexpi;
-	} else if (mnem.compare("ld") == 0) {
-		return ld;
-	} else if (mnem.compare("st") == 0) {
-		return st;
-	} else if (mnem.compare("fld") == 0) {
-		return fld;
-	} else if (mnem.compare("fst") == 0) {
-		return fst;
-	}	else {
+	} else if (mnem.compare("memld") == 0) {
+		return memld;
+	} else if (mnem.compare("memst") == 0) {
+		return memst;
+	} else if (mnem.compare("regld") == 0) {
+		return regld;
+	} else if (mnem.compare("regst") == 0) {
+		return regst;
+	} else if (mnem.compare("fregld") == 0) {
+		return fregld;
+	} else if (mnem.compare("fregst") == 0) {
+		return fregst;
+	} else {
 		return nop;
 	}
 }
@@ -339,25 +347,17 @@ void Computer::Execute(string instruction)
 		fp_output[1] = fp_regSrcs[0];
 		fp_output[2] = fp_regSrcs[1];
 		break;
-	case st:
-		regA = regFile.ReadOneRegister(tokens[2]);
-		regB = regFile.ReadOneRegister(tokens[1]);
-		mem.WriteToLAddress(regB, regA);
+	case memld:
+
 		break;
-	case ld:
-		regA = regFile.ReadOneRegister(tokens[2]);
-		regB = mem.ReadLAddress(regA);
-		regFile.Write(tokens[1], regB);
+	case memst:
+
 		break;
-	case fld:
-		regA = regFile.ReadOneFPRegister(tokens[2]);
-		fp_regB = mem.ReadFPAddress(regA);
-		regFile.WriteFP(tokens[1], fp_regB);
+	case regld:
+
 		break;
-	case fst:
-		regA = regFile.ReadOneRegister(tokens[2]);
-		fp_regB = regFile.ReadOneRegister(tokens[1]);
-		mem.WriteToFPAddress(regA, fp_regB);
+	case regst:
+
 		break;
 	default:
 		cout << "Invalid instruction\n";
