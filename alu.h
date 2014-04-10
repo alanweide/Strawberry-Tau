@@ -9,8 +9,6 @@ public:
 	long Subtract(long a, long b); // a-b
 	long Multiply(int a, int b); // a*b
 	long* Divide(long a, long b); // returns array containing quotient and remainder
-private:
-	// ?
 };
 
 #endif

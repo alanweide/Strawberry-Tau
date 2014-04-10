@@ -12,17 +12,28 @@ using namespace std;
 
 Memory::Memory()
 {
-	mem = new long[256];
+	lmem = new long[256];
+	fmem = new double[256];
 }
 
-long Memory::ReadAddress(long address)
+long Memory::ReadLAddress(long address)
 {
-	return mem[address];
+	return lmem[address];
 }
 
-void Memory::WriteToAddress(long address, long value)
+void Memory::WriteToLAddress(long address, long value)
 {
-	mem[address] = value;
+	lmem[address] = value;
+}
+
+double Memory::ReadFPAddress(long address)
+{
+	return fmem[address];
+}
+
+void Memory::WriteToFPAddress(long address, double value)
+{
+	fmem[address] = value;
 }
 
 

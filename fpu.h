@@ -1,6 +1,8 @@
 #ifndef FPU_H
 #define FPU_H
 
+#include <cmath>
+
 class FPU
 {
 public:
@@ -12,7 +14,6 @@ public:
 	double SquareRoot(double a);
 	double Sin(double a);
 	double Exp(double a, double b);
-private:
 };
 
 #endif

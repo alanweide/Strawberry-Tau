@@ -7,9 +7,9 @@
 //
 
 #include "registerfile.h"
-#include <string>
-#include <iostream>
-#include <regex>
+//#include <string>
+//#include <iostream>
+//#include <regex>
 
 using namespace std;
 

@@ -7,14 +7,14 @@
 //
 
 #include "computer.h"
-#include "memory.h"
-#include "alu.h"
-#include "fpu.h"
-#include "registerfile.h"
-#include <string>
-#include <iostream>
-#include <regex>
-#include <stdlib.h>
+//#include "memory.h"
+//#include "alu.h"
+//#include "fpu.h"
+//#include "registerfile.h"
+//#include <string>
+//#include <iostream>
+//#include <regex>
+//#include <stdlib.h>
 
 using namespace std;
 
@@ -35,14 +35,18 @@ enum mnemonic {
 	fmuli,
 	fdiv,
 	fdivi,
-	sqrt,
-	sin,
-	exp,
-	expi,
+	fsqrt,
+	fsin,
+	fexp,
+	fexpi,
 	memld,
 	memst,
+	fmemld,
+	fmemst,
 	regld,
 	regst,
+	fregld,
+	fregst,
 	nop
 };
 
@@ -88,13 +92,13 @@ mnemonic mnemonify (string mnem) {
 	} else if (mnem.compare("fdivi") == 0) {
 		return fdivi;
 	} else if (mnem.compare("sqrt") == 0) {
-		return sqrt;
+		return fsqrt;
 	} else if (mnem.compare("sin") == 0) {
-		return sin;
+		return fsin;
 	} else if (mnem.compare("exp") == 0) {
-		return exp;
+		return fexp;
 	} else if (mnem.compare("expi") == 0) {
-		return expi;
+		return fexpi;
 	} else if (mnem.compare("memld") == 0) {
 		return memld;
 	} else if (mnem.compare("memst") == 0) {
@@ -103,6 +107,10 @@ mnemonic mnemonify (string mnem) {
 		return regld;
 	} else if (mnem.compare("regst") == 0) {
 		return regst;
+	} else if (mnem.compare("fregld") == 0) {
+		return fregld;
+	} else if (mnem.compare("fregst") == 0) {
+		return fregst;
 	} else {
 		return nop;
 	}
@@ -338,7 +346,7 @@ void Computer::Execute(string instruction)
 		fp_output[0] = fp_regA;
 		fp_output[1] = fp_regB;
 		break;
-	case sqrt:
+	case fsqrt:
 		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_regA = fpu.SquareRoot(fp_regB);
@@ -346,7 +354,7 @@ void Computer::Execute(string instruction)
 		fp_output[0] = fp_regA;
 		fp_output[1] = fp_regB;
 		break;
-	case sin:
+	case fsin:
 		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_regA = fpu.Sin(fp_regB);
@@ -354,7 +362,7 @@ void Computer::Execute(string instruction)
 		fp_output[0] = fp_regA;
 		fp_output[1] = fp_regB;
 		break;
-	case exp:
+	case fexp:
 		twoReg = false;
 		fp_op = true;
 		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
@@ -364,7 +372,7 @@ void Computer::Execute(string instruction)
 		fp_output[1] = fp_regSrcs[0];
 		fp_output[2] = fp_regSrcs[1];
 		break;
-	case expi:
+	case fexpi:
 		fp_op = true;
 		break;
 	case memld:
