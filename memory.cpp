@@ -2,7 +2,7 @@
 //  memory.cpp
 //  Strawberry Tau
 //
-//  Created by Alan Weide on 4/5/14.
+//  Created by Alan Weide, Frank Fulajtar, and Jacob Oost on 4/5/14.
 //
 //
 

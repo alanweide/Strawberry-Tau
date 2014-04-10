@@ -1,5 +1,10 @@
-//#include <iostream>
-//#include <string>
+//
+//  main.cpp
+//  Strawberry Tau
+//
+//  Created by Alan Weide, Frank Fulajtar, and Jacob Oost on 4/5/14.
+//
+//
 #include "computer.h"
 
 using namespace std;

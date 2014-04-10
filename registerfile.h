@@ -1,3 +1,11 @@
+//
+//  registerfile.h
+//  Strawberry Tau
+//
+//  Created by Alan Weide, Frank Fulajtar, and Jacob Oost on 4/5/14.
+//
+//
+
 #ifndef REGISTER_FILE_H
 #define REGISTER_FILE_H
 
@@ -12,11 +20,11 @@ class RegisterFile
 public:
 	RegisterFile();
 	string PrintRegs(void);
-	// long register ops
+	// long register operations
 	long ReadOneRegister(string reg);
 	long* ReadTwoRegisters(string regA, string regB);
 	void Write(string reg, long value);
-	// fp register ops
+	// fp register operations
 	double ReadOneFPRegister(string freg);
 	double* ReadTwoFPRegisters(string fregA, string fregB);
 	void WriteFP(string freg, double value);

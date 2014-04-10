@@ -2,19 +2,11 @@
 //  computer.cpp
 //  Strawberry Tau
 //
-//  Created by Alan Weide on 4/5/14.
+//  Created by Alan Weide, Frank Fulajtar, and Jacob Oost on 4/5/14.
 //
 //
 
 #include "computer.h"
-//#include "memory.h"
-//#include "alu.h"
-//#include "fpu.h"
-//#include "registerfile.h"
-//#include <string>
-//#include <iostream>
-//#include <regex>
-//#include <stdlib.h>
 
 using namespace std;
 
@@ -119,24 +111,20 @@ string* Computer::TokenizeInstruction(string instruction)
 		i++;
 	}
 	i++;
-//	cout << tokens[0] << "\n";
 	while (instruction[i] != ' ') {
 		tokens[1] += instruction[i];
 		i++;
 	}
 	i++;
-//	cout << "first reg: " << tokens[1] << "\n";
 	while (instruction[i] != ' ') {
 		tokens[2] += instruction[i];
 		i++;
 	}
 	i++;
-//	cout << "second reg: " << tokens[2] << "\n";
 	while (instruction[i] != '\0') {
 		tokens[3] += instruction[i];
 		i++;
 	}
-//	cout << "last reg: " << tokens[3] << "\n";
 
 	return tokens;
 }
@@ -146,17 +134,6 @@ void Computer::Execute(string instruction)
 	string* tokens = TokenizeInstruction (instruction);
 	long output[3]; // long values of argument registers after execution
 	double fp_output[3]; // double values of argument registers after execution
-
-	// convert strings to char* for output in printf statement
-	// Is there a better way to do this?
-//	char* inst = strdup(tokens[0].c_str());
-//	char** args = new char*[6];
-//	args[0] = strdup(tokens[1].c_str());
-//	args[1] = strdup(tokens[2].c_str());
-//	args[2] = strdup(tokens[3].c_str());
-	//strcpy (args[0], tokens[1].c_str());
-	//strcpy (args[1], tokens[2].c_str());
-	//strcpy (args[2], tokens[3].c_str());
 
 	// convert instruction string to mnemonic enum for switch
 	cout << tokens[0] << "\n";
@@ -350,52 +327,6 @@ void Computer::Execute(string instruction)
 		cout << "Invalid instruction\n";
 		break;
 	}
-//	if (!err) {
-//		if (!fp_op)
-//		{
-//			if (twoReg) {
-//				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
-//						args[0] << ": " << output[0] << "\n  "
-//						<< args[1] << ": " << output[1] << "\n";
-//				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
-//				//					inst, args[0], output[0],
-//				//					args[1], output[1]);
-//			} else {
-//				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
-//						args[0] << ": " << output[0] << "\n  " << args[1] << ": " <<
-//						output[1] << "\n  " << args[2] << ": " << output[2] << "\n";
-//				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
-//				//					inst, args[0], output[0],
-//				//					args[1], output[1],
-//				//					args[2], output[2]);
-//			}
-//		}
-//		else
-//		{
-//			if (twoReg) {
-//				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
-//						args[0] << ": " << fp_output[0] << "\n  " <<
-//						args[1] << ": " << fp_output[1] << "\n";
-//				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
-//				//					inst, args[0], output[0],
-//				//					args[1], output[1]);
-//			} else {
-//				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
-//						args[0] << ": " << fp_output[0] << "\n  " <<
-//						args[1] << ": " << fp_output[1] << "\n  " <<
-//						args[2] << ": " << fp_output[2] << "\n";
-//				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
-//				//					inst, args[0], output[0],
-//				//					args[1], output[1],
-//				//					args[2], output[2]);
-//			}
-//		}
-//	}
-//	delete[] inst;
-//	free (args[0]);
-//	free (args[1]);
-//	free (args[2]);
-//	delete[] args;
 	delete[] tokens;
 	delete[] regSrcs;
 	delete[] divRes;

@@ -1,3 +1,11 @@
+//
+//  alu.h
+//  Strawberry Tau
+//
+//  Created by Alan Weide, Frank Fulajtar, and Jacob Oost on 4/5/14.
+//
+//
+
 #ifndef ALU_H
 #define ALU_H
 

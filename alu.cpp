@@ -1,3 +1,11 @@
+//
+//  alu.cpp
+//  Strawberry Tau
+//
+//  Created by Alan Weide, Frank Fulajtar, and Jacob Oost on 4/5/14.
+//
+//
+
 #include "alu.h"
 
 ALU::ALU()
@@ -22,8 +30,6 @@ long* ALU::Divide(long a, long b)
 
 long ALU::Multiply(int a, int b)
 {
-	// I'm leaving the parameters as ints so we don't have to
-	// worry about overflow if we multiply two large long values
 	return a*b;
 }
 

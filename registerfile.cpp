@@ -2,14 +2,11 @@
 //  registerfile.cpp
 //  Strawberry Tau
 //
-//  Created by Alan Weide on 4/5/14.
+//  Created by Alan Weide, Frank Fulajtar, and Jacob Oost on 4/5/14.
 //
 //
 
 #include "registerfile.h"
-//#include <string>
-//#include <iostream>
-//#include <regex>
 
 using namespace std;
 
@@ -121,78 +118,6 @@ int RegisterFile::findRegister(string reg)
 	// converts the register number to an int and returns that value
 	int regNo = atoi(reg.substr(3, reg.length()-3).c_str());
 	return regNo;
-
-	/*
-	if (reg.compare("reg0") == 0)
-	{
-		return 0;
-	}
-	else if (reg.compare("reg1") == 0)
-	{
-		return 1;
-	}
-	else if (reg.compare("reg2") == 0)
-	{
-		return 2;
-	}
-	else if (reg.compare("reg3") == 0)
-	{
-		return 3;
-	}
-	else if (reg.compare("reg4") == 0)
-	{
-		return 4;
-	}
-	else if (reg.compare("reg5") == 0)
-	{
-		return 5;
-	}
-	else if (reg.compare("reg6") == 0)
-	{
-		return 6;
-	}
-	else if (reg.compare("reg7") == 0)
-	{
-		return 7;
-	}
-	else if (reg.compare("reg8") == 0)
-	{
-		return 8;
-	}
-	else if (reg.compare("reg9") == 0)
-	{
-		return 9;
-	}
-	else if (reg.compare("reg10") == 0)
-	{
-		return 10;
-	}
-	else if (reg.compare("reg11") == 0)
-	{
-		return 11;
-	}
-	else if (reg.compare("reg12") == 0)
-	{
-		return 12;
-	}
-	else if (reg.compare("reg13") == 0)
-	{
-		return 13;
-	}
-	else if (reg.compare("reg14") == 0)
-	{
-		return 14;
-	}
-	else if (reg.compare("reg15") == 0)
-	{
-		return 15;
-	}
-	else
-	{
-		cout << "Invalid register name: " << reg << "\n";
-		return NULL;
-	}
-	*/
 }
 
 int RegisterFile::findFPRegister(string freg)
@@ -201,76 +126,4 @@ int RegisterFile::findFPRegister(string freg)
 	// converts the register number to an int and returns that value
 	int fregNo = atoi(freg.substr(4, freg.length()-4).c_str());
 	return fregNo;
-
-	/*
-	if (freg.compare("freg0") == 0)
-	{
-		return 0;
-	}
-	else if (freg.compare("freg1") == 0)
-	{
-		return 1;
-	}
-	else if (freg.compare("freg2") == 0)
-	{
-		return 2;
-	}
-	else if (freg.compare("freg3") == 0)
-	{
-		return 3;
-	}
-	else if (freg.compare("freg4") == 0)
-	{
-		return 4;
-	}
-	else if (freg.compare("freg5") == 0)
-	{
-		return 5;
-	}
-	else if (freg.compare("freg6") == 0)
-	{
-		return 6;
-	}
-	else if (freg.compare("freg7") == 0)
-	{
-		return 7;
-	}
-	else if (freg.compare("freg8") == 0)
-	{
-		return 8;
-	}
-	else if (freg.compare("freg9") == 0)
-	{
-		return 9;
-	}
-	else if (freg.compare("freg10") == 0)
-	{
-		return 10;
-	}
-	else if (freg.compare("freg11") == 0)
-	{
-		return 11;
-	}
-	else if (freg.compare("freg12") == 0)
-	{
-		return 12;
-	}
-	else if (freg.compare("freg13") == 0)
-	{
-		return 13;
-	}
-	else if (freg.compare("freg14") == 0)
-	{
-		return 14;
-	}
-	else if (freg.compare("freg15") == 0)
-	{
-		return 15;
-	}
-	else
-	{
-		cout << "Invalid register name.  address = " + freg;
-		return NULL;
-	}
-	*/
 }
