@@ -320,12 +320,11 @@ void Computer::Execute(string instruction)
 		fp_output[1] = fp_regB;
 		break;
 	case fexp:
-		fp_regSrcs = regFile.ReadOneFPRegister(tokens[2]);
-		fp_regA = fpu.Exp(fp_regSrcs[0]);
+		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
+		fp_regA = fpu.Exp(fp_regB);
 		regFile.WriteFP(tokens[1], fp_regA);
 		fp_output[0] = fp_regA;
-		fp_output[1] = fp_regSrcs[0];
-		fp_output[2] = fp_regSrcs[1];
+		fp_output[1] = fp_regB;
 		break;
 	case ld:
 		regA = regFile.ReadOneRegister(tokens[2]);
