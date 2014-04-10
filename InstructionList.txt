@@ -19,13 +19,10 @@ fmul reg# reg# reg#
 fmuli reg# reg# double
 sqrt reg# reg#
 sin reg# reg#
-exp reg# reg# reg#
-expi reg# reg# double
+exp reg# reg#
 
 MEM ops
-memld reg# reg#
-memst reg# reg#
-
-REG ops
-regld reg# reg#
-regst reg# reg#
+ld reg# reg#
+st reg# reg#
+fld reg# reg#
+fst reg# reg#

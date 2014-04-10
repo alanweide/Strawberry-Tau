@@ -11,6 +11,7 @@ class RegisterFile
 {
 public:
 	RegisterFile();
+	string PrintRegs(void);
 	// long register ops
 	long ReadOneRegister(string reg);
 	long* ReadTwoRegisters(string regA, string regB);

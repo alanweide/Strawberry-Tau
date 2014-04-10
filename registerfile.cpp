@@ -24,6 +24,31 @@ RegisterFile::RegisterFile()
 	}
 }
 
+string RegisterFile::PrintRegs(void) {
+	string out = "Integer Registers:\n";
+	int i = 0;
+	while (i < 10) {
+		out += to_string(i) + ":  " + to_string(registers[i]) + "\n";
+		i++;
+	}
+	while (i < 16) {
+		out += to_string(i) + ": " + to_string(registers[i]) + "\n";
+		i++;
+	}
+	i = 0;
+	out += "------------------------------------\n";
+	out += "Floating Point Registers:\n";
+	while (i < 10) {
+		out += to_string(i) + ":  " + to_string(fregisters[i]) + "\n";
+		i++;
+	}
+	while (i < 16) {
+		out += to_string(i) + ": " + to_string(fregisters[i]) + "\n";
+	}
+	out += "------------------------------------\n";
+	return out;
+}
+
 long RegisterFile::ReadOneRegister(string reg)
 {
 	int addr = this->findRegister(reg);

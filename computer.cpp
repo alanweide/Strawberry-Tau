@@ -182,11 +182,6 @@ void Computer::Execute(string instruction)
 	cout << tokens[0] << "\n";
 	mnemonic mnem = mnemonify (tokens[0]);
 
-	// flags
-	bool err = false;
-	bool twoReg = true;
-	bool fp_op = false;
-
 	// initialize longs to store register values
 	long regA, regB, imm;
 	long *regSrcs = new long[2];
@@ -199,7 +194,6 @@ void Computer::Execute(string instruction)
 
 	switch (mnem) {
 	case add:
-		twoReg = false;
 		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
 		regA = alu.Add(regSrcs[0], regSrcs[1]);
 		regFile.Write(tokens[1], regA);
@@ -216,7 +210,6 @@ void Computer::Execute(string instruction)
 		output[1] = regB;
 		break;
 	case sub:
-		twoReg = false;
 		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
 		regA = alu.Subtract(regSrcs[0], regSrcs[1]);
 		regFile.Write(tokens[1], regA);
@@ -233,7 +226,6 @@ void Computer::Execute(string instruction)
 		output[1] = regB;
 		break;
 	case mul:
-		twoReg = false;
 		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
 		regA = alu.Multiply((int)regSrcs[0], (int)regSrcs[1]);
 		regFile.Write(tokens[1], regA);
@@ -250,7 +242,6 @@ void Computer::Execute(string instruction)
 		output[1] = regB;
 		break;
 	case divd:
-		twoReg = false;
 		regSrcs = regFile.ReadTwoRegisters(tokens[2], tokens[3]);
 		divRes = alu.Divide(regSrcs[0], regSrcs[1]);
 		regA = divRes[0];
@@ -269,8 +260,6 @@ void Computer::Execute(string instruction)
 		output[1] = regB;
 		break;
 	case fadd:
-		twoReg = false;
-		fp_op = true;
 		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
 		fp_regA = fpu.Add(fp_regSrcs[0], fp_regSrcs[1]);
 		regFile.WriteFP(tokens[1], fp_regA);
@@ -279,7 +268,6 @@ void Computer::Execute(string instruction)
 		fp_output[2] = fp_regSrcs[1];
 		break;
 	case faddi:
-		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_imm = atof(args[2]);
 		fp_regA = fpu.Add(fp_regB, fp_imm);
@@ -288,8 +276,6 @@ void Computer::Execute(string instruction)
 		fp_output[1] = fp_regB;
 		break;
 	case fsub:
-		twoReg = false;
-		fp_op = true;
 		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
 		fp_regA = fpu.Subtract(regSrcs[0], fp_regSrcs[1]);
 		regFile.WriteFP(tokens[1], fp_regA);
@@ -298,7 +284,6 @@ void Computer::Execute(string instruction)
 		fp_output[2] = fp_regSrcs[1];
 		break;
 	case fsubi:
-		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_imm = atof(args[2]);
 		fp_regA = fpu.Subtract(fp_regB, fp_imm);
@@ -307,8 +292,6 @@ void Computer::Execute(string instruction)
 		fp_output[1] = fp_regB;
 		break;
 	case fmul:
-		twoReg = false;
-		fp_op = true;
 		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
 		fp_regA = fpu.Multiply((int)fp_regSrcs[0], (int)fp_regSrcs[1]);
 		regFile.WriteFP(tokens[1], fp_regA);
@@ -317,7 +300,6 @@ void Computer::Execute(string instruction)
 		fp_output[2] = fp_regSrcs[1];
 		break;
 	case fmuli:
-		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_imm = atof(args[2]);
 		fp_regA = fpu.Multiply((int)fp_regB, (int)fp_imm);
@@ -326,8 +308,6 @@ void Computer::Execute(string instruction)
 		fp_output[1] = fp_regB;
 		break;
 	case fdiv:
-		twoReg = false;
-		fp_op = true;
 		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
 		fp_divRes = fpu.Divide(regSrcs[0], regSrcs[1]);
 		fp_regA = fp_divRes[0];
@@ -337,7 +317,6 @@ void Computer::Execute(string instruction)
 		fp_output[2] = fp_regSrcs[1];
 		break;
 	case fdivi:
-		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_imm = atof(args[2]);
 		fp_divRes = fpu.Divide(fp_regB, fp_imm);
@@ -347,7 +326,6 @@ void Computer::Execute(string instruction)
 		fp_output[1] = fp_regB;
 		break;
 	case fsqrt:
-		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_regA = fpu.SquareRoot(fp_regB);
 		regFile.WriteFP(tokens[1], fp_regA);
@@ -355,7 +333,6 @@ void Computer::Execute(string instruction)
 		fp_output[1] = fp_regB;
 		break;
 	case fsin:
-		fp_op = true;
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
 		fp_regA = fpu.Sin(fp_regB);
 		regFile.WriteFP(tokens[1], fp_regA);
@@ -363,17 +340,12 @@ void Computer::Execute(string instruction)
 		fp_output[1] = fp_regB;
 		break;
 	case fexp:
-		twoReg = false;
-		fp_op = true;
 		fp_regSrcs = regFile.ReadTwoFPRegisters(tokens[2], tokens[3]);
 		fp_regA = fpu.Exp(fp_regSrcs[0], fp_regSrcs[1]);
 		regFile.WriteFP(tokens[1], fp_regA);
 		fp_output[0] = fp_regA;
 		fp_output[1] = fp_regSrcs[0];
 		fp_output[2] = fp_regSrcs[1];
-		break;
-	case fexpi:
-		fp_op = true;
 		break;
 	case memld:
 
@@ -389,50 +361,49 @@ void Computer::Execute(string instruction)
 		break;
 	default:
 		cout << "Invalid instruction\n";
-		err = true;
 		break;
 	}
-	if (!err) {
-		if (!fp_op)
-		{
-			if (twoReg) {
-				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
-						args[0] << ": " << output[0] << "\n  "
-						<< args[1] << ": " << output[1] << "\n";
-				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
-				//					inst, args[0], output[0],
-				//					args[1], output[1]);
-			} else {
-				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
-						args[0] << ": " << output[0] << "\n  " << args[1] << ": " <<
-						output[1] << "\n  " << args[2] << ": " << output[2] << "\n";
-				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
-				//					inst, args[0], output[0],
-				//					args[1], output[1],
-				//					args[2], output[2]);
-			}
-		}
-		else
-		{
-			if (twoReg) {
-				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
-						args[0] << ": " << fp_output[0] << "\n  " <<
-						args[1] << ": " << fp_output[1] << "\n";
-				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
-				//					inst, args[0], output[0],
-				//					args[1], output[1]);
-			} else {
-				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
-						args[0] << ": " << fp_output[0] << "\n  " <<
-						args[1] << ": " << fp_output[1] << "\n  " <<
-						args[2] << ": " << fp_output[2] << "\n";
-				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
-				//					inst, args[0], output[0],
-				//					args[1], output[1],
-				//					args[2], output[2]);
-			}
-		}
-	}
+//	if (!err) {
+//		if (!fp_op)
+//		{
+//			if (twoReg) {
+//				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
+//						args[0] << ": " << output[0] << "\n  "
+//						<< args[1] << ": " << output[1] << "\n";
+//				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
+//				//					inst, args[0], output[0],
+//				//					args[1], output[1]);
+//			} else {
+//				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
+//						args[0] << ": " << output[0] << "\n  " << args[1] << ": " <<
+//						output[1] << "\n  " << args[2] << ": " << output[2] << "\n";
+//				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
+//				//					inst, args[0], output[0],
+//				//					args[1], output[1],
+//				//					args[2], output[2]);
+//			}
+//		}
+//		else
+//		{
+//			if (twoReg) {
+//				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
+//						args[0] << ": " << fp_output[0] << "\n  " <<
+//						args[1] << ": " << fp_output[1] << "\n";
+//				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n",
+//				//					inst, args[0], output[0],
+//				//					args[1], output[1]);
+//			} else {
+//				cout << "Instruction: " << inst << "\nRegister contents:\n  " <<
+//						args[0] << ": " << fp_output[0] << "\n  " <<
+//						args[1] << ": " << fp_output[1] << "\n  " <<
+//						args[2] << ": " << fp_output[2] << "\n";
+//				//			printf("Instruction: %s\nRegister contents:\n  %s: %ld\n  %s: %ld\n  %s: %ld\n",
+//				//					inst, args[0], output[0],
+//				//					args[1], output[1],
+//				//					args[2], output[2]);
+//			}
+//		}
+//	}
 	delete[] inst;
 	free (args[0]);
 	free (args[1]);
@@ -447,5 +418,5 @@ void Computer::Execute(string instruction)
 
 void Computer::PrintState(void)
 {
-
+	cout << regFile.PrintRegs();
 }
