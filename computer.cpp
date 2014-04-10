@@ -350,13 +350,11 @@ void Computer::Execute(string instruction)
 		regFile.Write(tokens[1], regB);
 		break;
 	case fld:
-		fp_op = true;
 		regA = regFile.ReadOneFPRegister(tokens[2]);
 		fp_regB = mem.ReadFPAddress(regA);
 		regFile.WriteFP(tokens[1], fp_regB);
 		break;
 	case fst:
-		fp_op = true;
 		regA = regFile.ReadOneRegister(tokens[2]);
 		fp_regB = regFile.ReadOneRegister(tokens[1]);
 		mem.WriteToFPAddress(regA, fp_regB);
