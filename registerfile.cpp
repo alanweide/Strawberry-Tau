@@ -108,7 +108,7 @@ void RegisterFile::WriteFP(string freg, double value)
 	}
 	else if (fregNo == -1)
 	{
-		cout << "Invalid Register name. address = " + freg;
+		cout << "Invalid Register name: address = " + freg;
 	}
 	else
 	{

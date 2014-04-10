@@ -119,39 +119,25 @@ string* Computer::TokenizeInstruction(string instruction)
 		i++;
 	}
 	i++;
-	cout << tokens[0] << "\n";
+//	cout << tokens[0] << "\n";
 	while (instruction[i] != ' ') {
 		tokens[1] += instruction[i];
 		i++;
 	}
 	i++;
-	cout << "first reg: " << tokens[1] << "\n";
+//	cout << "first reg: " << tokens[1] << "\n";
 	while (instruction[i] != ' ') {
 		tokens[2] += instruction[i];
 		i++;
 	}
 	i++;
-	cout << "second reg: " << tokens[2] << "\n";
+//	cout << "second reg: " << tokens[2] << "\n";
 	while (instruction[i] != '\0') {
 		tokens[3] += instruction[i];
 		i++;
 	}
-	cout << "last reg: " << tokens[3] << "\n";
+//	cout << "last reg: " << tokens[3] << "\n";
 
-	/*
-    smatch smTokens;
-	regex instRx ("^(\w+)\s(w+)\s(w+)\s(\w+)$");
-	bool match = regex_match(instruction,
-			smTokens,
-			instRx,
-			regex_constants::match_default);
-	cout << match << "\n";
-	cout << "smTokens size: " << smTokens.size() << "\n";
-	for (int i = 0; i < smTokens.size(); i++) {
-		cout << smTokens[i] << "\n";
-		tokens[i] = smTokens[i];
-	}
-	 */
 	return tokens;
 }
 
@@ -160,13 +146,14 @@ void Computer::Execute(string instruction)
 	string* tokens = TokenizeInstruction (instruction);
 	long output[3]; // long values of argument registers after execution
 	double fp_output[3]; // double values of argument registers after execution
+
 	// convert strings to char* for output in printf statement
 	// Is there a better way to do this?
-	char* inst = strdup(tokens[0].c_str());
-	char** args = new char*[6];
-	args[0] = strdup(tokens[1].c_str());
-	args[1] = strdup(tokens[2].c_str());
-	args[2] = strdup(tokens[3].c_str());
+//	char* inst = strdup(tokens[0].c_str());
+//	char** args = new char*[6];
+//	args[0] = strdup(tokens[1].c_str());
+//	args[1] = strdup(tokens[2].c_str());
+//	args[2] = strdup(tokens[3].c_str());
 	//strcpy (args[0], tokens[1].c_str());
 	//strcpy (args[1], tokens[2].c_str());
 	//strcpy (args[2], tokens[3].c_str());
@@ -180,7 +167,7 @@ void Computer::Execute(string instruction)
 	long *regSrcs = new long[2];
 	long *divRes = new long[2];
 
-	// initialize doubless to store register values
+	// initialize doubles to store register values
 	double fp_regA, fp_regB, fp_imm;
 	double *fp_regSrcs = new double[2];
 	double *fp_divRes = new double[2];
@@ -196,7 +183,7 @@ void Computer::Execute(string instruction)
 		break;
 	case addi:
 		regB = regFile.ReadOneRegister(tokens[2]);
-		imm = atol(args[2]);
+		imm = stol(tokens[3]);
 		regA = alu.Add(regB, imm);
 		regFile.Write(tokens[1], regA);
 		output[0] = regA;
@@ -212,7 +199,7 @@ void Computer::Execute(string instruction)
 		break;
 	case subi:
 		regB = regFile.ReadOneRegister(tokens[2]);
-		imm = atol(args[2]);
+		imm = stol(tokens[1]);
 		regA = alu.Subtract(regB, imm);
 		regFile.Write(tokens[1], regA);
 		output[0] = regA;
@@ -228,7 +215,7 @@ void Computer::Execute(string instruction)
 		break;
 	case muli:
 		regB = regFile.ReadOneRegister(tokens[2]);
-		imm = atol(args[2]);
+		imm = stol(tokens[3]);
 		regA = alu.Multiply((int)regB, (int)imm);
 		regFile.Write(tokens[1], regA);
 		output[0] = regA;
@@ -245,7 +232,7 @@ void Computer::Execute(string instruction)
 		break;
 	case divi:
 		regB = regFile.ReadOneRegister(tokens[2]);
-		imm = atol(args[2]);
+		imm = stol(tokens[3]);
 		divRes = alu.Divide(regB, imm);
 		regA = divRes[0];
 		regFile.Write(tokens[1], regA);
@@ -262,7 +249,7 @@ void Computer::Execute(string instruction)
 		break;
 	case faddi:
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
-		fp_imm = atof(args[2]);
+		fp_imm = stof(tokens[3]);
 		fp_regA = fpu.Add(fp_regB, fp_imm);
 		regFile.WriteFP(tokens[1], fp_regA);
 		fp_output[0] = fp_regA;
@@ -278,7 +265,7 @@ void Computer::Execute(string instruction)
 		break;
 	case fsubi:
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
-		fp_imm = atof(args[2]);
+		fp_imm = stof(tokens[3]);
 		fp_regA = fpu.Subtract(fp_regB, fp_imm);
 		regFile.WriteFP(tokens[1], fp_regA);
 		fp_output[0] = fp_regA;
@@ -294,7 +281,7 @@ void Computer::Execute(string instruction)
 		break;
 	case fmuli:
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
-		fp_imm = atof(args[2]);
+		fp_imm = stof(tokens[3]);
 		fp_regA = fpu.Multiply((int)fp_regB, (int)fp_imm);
 		regFile.WriteFP(tokens[1], fp_regA);
 		fp_output[0] = fp_regA;
@@ -311,7 +298,7 @@ void Computer::Execute(string instruction)
 		break;
 	case fdivi:
 		fp_regB = regFile.ReadOneFPRegister(tokens[2]);
-		fp_imm = atof(args[2]);
+		fp_imm = stof(tokens[3]);
 		fp_divRes = fpu.Divide(fp_regB, fp_imm);
 		fp_regA = divRes[0];
 		regFile.WriteFP(tokens[1], fp_regA);
@@ -405,11 +392,11 @@ void Computer::Execute(string instruction)
 //			}
 //		}
 //	}
-	delete[] inst;
-	free (args[0]);
-	free (args[1]);
-	free (args[2]);
-	delete[] args;
+//	delete[] inst;
+//	free (args[0]);
+//	free (args[1]);
+//	free (args[2]);
+//	delete[] args;
 	delete[] tokens;
 	delete[] regSrcs;
 	delete[] divRes;
