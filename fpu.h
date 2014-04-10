@@ -13,7 +13,7 @@ public:
 	double* Divide(double a, double b);
 	double SquareRoot(double a);
 	double Sin(double a);
-	double Exp(double a, double b);
+	double Exp(double a);
 };
 
 #endif
